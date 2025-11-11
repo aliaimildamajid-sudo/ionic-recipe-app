@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Recipe Search</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" fill="clear" colour="light">Log Out
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar 
+    [(ngModel)]="searchQuery"
+    (ionChange)="searchRecipes()"
+    placeholder="Search for recipes..."
+    animated="true">
+  </ion-searchbar>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Searching recipes...</p>
+  </div>
+
+  <ion-grid *ngIf="!isLoading && recipes.length > 0">
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let recipe of recipes">
+        <ion-card (click)="viewRecipe(recipe)" button="true">
+          <img [src]="recipe.image" [alt]="recipe.title" />
+          <ion-card-header>
+            <ion-card-title>{{ recipe.title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-chip color="primary">
+              <ion-icon name="time-outline"></ion-icon>
+              <ion-label>{{ recipe.readyInMinutes }} min</ion-label>
+            </ion-chip>
+            <ion-chip color="secondary">
+              <ion-icon name="people-outline"></ion-icon>
+              <ion-label>{{ recipe.servings }} servings</ion-label>
+            </ion-chip>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="!isLoading && recipes.length === 0 && searchQuery" class="no-results">
+    <ion-icon name="search-outline" size="large"></ion-icon>
+    <p>No recipes found. Try another search!</p>
+  </div>
+
+  <div *ngIf="!searchQuery && recipes.length === 0" class="welcome-message">
+    <ion-icon name="restaurant-outline" size="large" color="primary"></ion-icon>
+    <h2>Welcome to Recipe Finder!</h2>
+    <p>Search for your favorite recipes above</p>
+  </div>
+</ion-content>

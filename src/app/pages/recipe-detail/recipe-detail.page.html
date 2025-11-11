@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Recipe Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Loading recipe...</p>
+  </div>
+
+  <div *ngIf="!isLoading && recipe">
+    <img [src]="recipe.image" [alt]="recipe.title" class="recipe-image" />
+    
+    <div class="ion-padding">
+      <h1>{{ recipe.title }}</h1>
+      
+      <div class="recipe-meta">
+        <ion-chip color="primary">
+          <ion-icon name="time-outline"></ion-icon>
+          <ion-label>{{ recipe.readyInMinutes }} minutes</ion-label>
+        </ion-chip>
+        <ion-chip color="secondary">
+          <ion-icon name="people-outline"></ion-icon>
+          <ion-label>{{ recipe.servings }} servings</ion-label>
+        </ion-chip>
+      </div>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Summary</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{ recipe.summary }}</p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="recipe.extendedIngredients && recipe.extendedIngredients.length > 0">
+        <ion-card-header>
+          <ion-card-title>Ingredients</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let ingredient of recipe.extendedIngredients">
+              <ion-icon name="checkmark-circle-outline" slot="start" color="success"></ion-icon>
+              <ion-label>
+                <h3>{{ ingredient.name }}</h3>
+                <p>{{ ingredient.amount }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="recipe.instructions">
+        <ion-card-header>
+          <ion-card-title>Instructions</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="instructions">{{ recipe.instructions }}</p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button 
+        expand="block" 
+        color="primary"
+        (click)="goBack()"
+        class="ion-margin-top">
+        Back to Search
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

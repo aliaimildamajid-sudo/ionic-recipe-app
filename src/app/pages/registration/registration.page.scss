@@ -1,0 +1,38 @@
+ion-content {
+  --background: var(--ion-background-color);
+}
+
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+  padding: 40px 16px;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+ion-card-header {
+  padding-bottom: 8px;
+}
+
+ion-card-title {
+  font-size: 1.5rem;
+}
+
+ion-card-subtitle {
+  font-size: 0.9rem;
+}
+
+ion-item {
+  margin-bottom: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+}
+
+ion-button {
+  margin-top: 8px;
+}
